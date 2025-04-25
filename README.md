@@ -1,3 +1,20 @@
+# SCSU CSC400 Capstone: Biblography Site Upgrade
+
+You can follow the standard installation provided in the docs below, with one change:
+
+git clone --branch https://github.com/robertorozco1/CSC400_SCSU_Authors.git
+- No version number needed
+- config.toml is already made. Use that version and update with your own Zotero API Key and UserID (needed to maintain navbar with dashboard link, as well as collections facete.)
+cd CSC400_SCSU_Authors
+python -m venv venv
+venv\Scripts\activate.bat
+pip install -r requirements\run.txt
+
+then follow as directed! 
+
+Brought to you by too much caffeine and too little sleep
+
+
 # KerkoApp
 
 [KerkoApp] is a web application that uses [Kerko] to provide a user-friendly
