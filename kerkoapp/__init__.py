@@ -10,8 +10,10 @@ from flask_babel import get_locale
 from kerko.config_helpers import config_update, parse_config
 
 from . import logging
+from .dashboard import dashboard_bp
 from .config_helpers import KerkoAppModel, load_config_files
 from .extensions import babel, bootstrap
+
 
 
 def create_app() -> Flask:
@@ -21,7 +23,7 @@ def create_app() -> Flask:
     Explained here: http://flask.pocoo.org/docs/patterns/appfactories/
     """
     try:
-        app = Flask(__name__, instance_path=os.environ.get("KERKOAPP_INSTANCE_PATH"))
+        app = Flask(__name__, template_folder="custom_templates", instance_path=os.environ.get("KERKOAPP_INSTANCE_PATH"))
     except ValueError as e:
         msg = f"Unable to initialize the application. {e}"
         raise RuntimeError(msg) from e
@@ -50,12 +52,11 @@ def create_app() -> Flask:
     # good place to alter the Composer object, perhaps adding facets.
     # ----
 
+    #Helper functions for KerkoApp
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
-
     return app
-
 
 def register_extensions(app: Flask) -> None:
     # Initialize Babel to use translations from both Kerko and the app. Config
@@ -74,11 +75,12 @@ def register_extensions(app: Flask) -> None:
     logging.init_app(app)
     bootstrap.init_app(app)
 
-
 def register_blueprints(app: Flask) -> None:
     # Setting `url_prefix` is required to distinguish the blueprint's static
     # folder route URL from the app's.
     app.register_blueprint(kerko.make_blueprint(), url_prefix="/bibliography")
+    #DASHBOOARD BLUEPRINT (ROOT/SPLASHPAGE URL '/dashboard') WITH REDIRECT TO MAIN BIB
+    app.register_blueprint(dashboard_bp, url_prefix="/bibliography")
 
 
 def register_errorhandlers(app: Flask) -> None:
