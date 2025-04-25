@@ -23,7 +23,7 @@ def create_app() -> Flask:
     Explained here: http://flask.pocoo.org/docs/patterns/appfactories/
     """
     try:
-        app = Flask(__name__, template_folder="custom_templates", instance_path=os.environ.get("KERKOAPP_INSTANCE_PATH"))
+        app = Flask(__name__, template_folder="templates", instance_path=os.environ.get("KERKOAPP_INSTANCE_PATH"))
     except ValueError as e:
         msg = f"Unable to initialize the application. {e}"
         raise RuntimeError(msg) from e

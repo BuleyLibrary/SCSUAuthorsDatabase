@@ -167,7 +167,7 @@ def index():
             }
         }
 
-        return render_template("kerko/dashboard.html.jinja2", 
+        return render_template("kerkoapp/dashboard.html.jinja2", 
                              all_data=all_data,
                              chartJSON=json.dumps(chart_data),
                              rss_feed_url=(current_app.config['SERVER_NAME'] or 'http://localhost') + '/feed.rss')
@@ -183,6 +183,6 @@ def index():
                 'author_count': 0
             }
         }]
-        return render_template("kerko/dashboard.html.jinja2", 
+        return render_template("kerkoapp/dashboard.html.jinja2", 
                              all_data=all_data,
                              rss_feed_url=(current_app.config['SERVER_NAME'] or 'http://localhost') + '/feed.rss')
