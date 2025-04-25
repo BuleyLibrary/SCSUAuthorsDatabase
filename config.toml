@@ -37,7 +37,7 @@ max_days = 0
 
 [kerko.meta]
 
-title = "KerkoApp"
+title = "SCSU Bibliography"
 highwirepress_tags = true
 google_analytics_id = ""
 
@@ -61,7 +61,7 @@ text_max_length_leeway = 10
     endpoint = "kerko.search"
 
     [[kerko.link_groups.navbar]]
-    text = "Dashboard"
+    text = "Analytics Dashboard"
     type = "url"
     url = "/bibliography/dashboard"
 
@@ -90,7 +90,7 @@ whoosh_language = "en"
 [kerko.facets]
 
     [kerko.facets.tag]
-    enabled = true
+    enabled = false
     weight = 100
     initial_limit = 10
     initial_limit_leeway = 2
@@ -127,15 +127,12 @@ whoosh_language = "en"
     sort_by = ["label"]
 
     # This shows how a collection-based facet might be configured.
-    [kerko.facets.my_custom_facet]
-    enabled = false  # No effect unless this is set to true.
+    [kerko.facets.department]
+    enabled = true  # No effect unless this is set to true.
     type = "collection"
-    collection_key = "AAAAAAAA"
-    filter_key = "my_custom_facet"
-    title = "My custom facet"
+    collection_key = "SBEEUPXD"
+    filter_key = "department"
+    title = "Department"
     weight = 50
     initial_limit = 10
     initial_limit_leeway = 2
-    sort_by = ["count", "label"]
-    sort_reverse = false
-    item_view = true

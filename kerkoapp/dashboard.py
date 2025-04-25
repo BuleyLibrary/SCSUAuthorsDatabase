@@ -43,7 +43,7 @@ def get_whoosh_items():
 
     return items
 
-def proces_for_dashboard(items):
+def process_for_dashboard(items):
      # Process Zotero items
         processed = []
         for item in items:
@@ -58,14 +58,12 @@ def proces_for_dashboard(items):
                     'name': f"{creator.get('firstName', '')} {creator.get('lastName', '')}".strip()
                 })
             newdata.append({'creators': creators})
-            data.pop('creators')
       
             
             # Get citations Data (stored in "extra")
             extra_str = data.get('extra', '')
             extra_dict = string_to_dict(extra_str)
-            newdata.append({'extra' : extra_dict}) 
-            data.pop('extra')
+            newdata.append({'extra' : extra_dict})
 
             newdata.append ({
                 'title' : data.get('title', ''),
@@ -112,7 +110,7 @@ def index():
 
         items = get_whoosh_items()
 
-        zotero_items = proces_for_dashboard(items)
+        zotero_items = process_for_dashboard(items)
 
         # Sort items by 'CitedBy' in descending order
         sorted_items = sorted(zotero_items, key=get_cited_by, reverse=True)
@@ -167,7 +165,7 @@ def index():
             }
         }
 
-        return render_template("kerkoapp/dashboard.html.jinja2", 
+        return render_template("dashboard.html.jinja2", 
                              all_data=all_data,
                              chartJSON=json.dumps(chart_data),
                              rss_feed_url=(current_app.config['SERVER_NAME'] or 'http://localhost') + '/feed.rss')
@@ -183,6 +181,7 @@ def index():
                 'author_count': 0
             }
         }]
-        return render_template("kerkoapp/dashboard.html.jinja2", 
+        return render_template("dashboard.html.jinja2", 
                              all_data=all_data,
                              rss_feed_url=(current_app.config['SERVER_NAME'] or 'http://localhost') + '/feed.rss')
+

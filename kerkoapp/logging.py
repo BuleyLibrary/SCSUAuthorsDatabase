@@ -1,6 +1,5 @@
 import logging
 from logging.config import dictConfig
-
 from flask.logging import default_handler
 
 # Set root logger to log to sys.stderr.
