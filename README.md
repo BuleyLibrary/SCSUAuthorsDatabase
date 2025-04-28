@@ -13,6 +13,7 @@ pip install -r requirements\run.txt
 then follow as directed! 
 
 Brought to you by too much caffeine and too little sleep
+(and also myself and Malik Williams https://github.com/MalikWilliamsSCSU)
 
 
 # KerkoApp
