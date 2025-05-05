@@ -1,4 +1,4 @@
-# SCSU CSC400 Capstone: Biblography Site Upgrade
+# SCSU CSC400 Capstone: Bibliography Site Upgrade
 
 You can follow the standard installation provided in the docs below, with one change:
 
