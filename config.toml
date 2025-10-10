@@ -1,7 +1,7 @@
 # Sample config.toml file to show the most frequently used configuration parameters.
 
-ZOTERO_LIBRARY_ID = "16452772"  # Set this to your Zotero library ID.
-ZOTERO_LIBRARY_TYPE = "user"  # Set to "user" for a personal library.
+ZOTERO_LIBRARY_ID = "5133075"  # Set this to your Zotero library ID. THIS IS THE DEV GROUP
+ZOTERO_LIBRARY_TYPE = "group"  # Set to "user" for a personal library.
 
 BABEL_DEFAULT_LOCALE = "en_US"
 BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -126,11 +126,10 @@ whoosh_language = "en"
     weight = 400
     sort_by = ["label"]
 
-    # This shows how a collection-based facet might be configured.
     [kerko.facets.department]
     enabled = true  # No effect unless this is set to true.
     type = "collection"
-    collection_key = "SBEEUPXD"
+    collection_key = "VN2GRWYN"
     filter_key = "department"
     title = "Department"
     weight = 50
