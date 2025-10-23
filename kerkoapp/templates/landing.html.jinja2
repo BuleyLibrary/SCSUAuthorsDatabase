@@ -1,41 +1,469 @@
-{%- extends config.kerko.templates.page %}
+{%- extends config.kerko.templates.page %}{%- extends config.kerko.templates.page %}
 
-{% block content %}
-<style>
-    body {
-        background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    main {
-        background: transparent;
-    }
-    .bg-custom {
-        background-color: transparent;
-    }
-    .btn-info {
-        background-color: skyblue;
-    }
-    a:link {
-        color: white;
-        text-decoration: none;
-    }
-    a:visited {
-        color: white;
-        background: skyblue;
-        text-decoration: none;
-    }
-    a:hover {
-        color: white;
-        text-decoration: underline;
-    }
-</style>
+
+
+{% block content %}{% block content %}
+
+<style><style>
+
+    body {    body {
+
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;        background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;
+
+        background-repeat: no-repeat;        background-repeat: no-repeat;
+
+        background-size: cover;        background-size: cover;
+
+    }    }
+
+    main {    main {
+
+        background: transparent;        background: transparent;
+
+    }    }
+
+    .bg-custom {    .bg-custom {
+
+        background-color: transparent;        background-color: transparent;
+
+    }    }
+
+    .btn-info {    .btn-info {
+
+        background-color: skyblue;        background-color: skyblue;
+
+    }    }
+
+    a:link {    a:link {
+
+        color: white;        color: white;
+
+        text-decoration: none;        text-decoration: none;
+
+    }    }
+
+    a:visited {    a:visited {
+
+        color: white;        color: white;
+
+        background: skyblue;        background: skyblue;
+
+        text-decoration: none;        text-decoration: none;
+
+    }    }
+
+    a:hover {    a:hover {
+
+        color: white;        color: white;
+
+        text-decoration: underline;        text-decoration: underline;
+
+    }    }
+
+        
+
+    /* Carousel styling for landing page */    /* Carousel styling for landing page */
+
+    .carousel-newest {    .carousel-newest {
+
+        background-color: rgba(255, 255, 255, 0.95);        background-color: rgba(255, 255, 255, 0.95);
+
+        border-radius: 10px;        border-radius: 10px;
+
+        padding: 20px;        padding: 20px;
+
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    }    }
+
+    .carousel-newest .carousel-item {    .carousel-newest .carousel-item {
+
+        min-height: 300px;        min-height: 300px;
+
+        padding: 20px;        padding: 20px;
+
+    }    }
+
+    .carousel-newest h3 {    .carousel-newest h3 {
+
+        color: #333;        color: #333;
+
+        font-size: 1.3rem;        font-size: 1.3rem;
+
+        margin-bottom: 15px;        margin-bottom: 15px;
+
+        font-weight: bold;        font-weight: bold;
+
+    }    }
+
+    .carousel-newest .item-meta {    .carousel-newest .item-meta {
+
+        color: #666;        color: #666;
+
+        font-size: 0.95rem;        font-size: 0.95rem;
+
+        margin-bottom: 10px;        margin-bottom: 10px;
+
+    }    }
+
+    .carousel-newest .item-link {    .carousel-newest .item-link {
+
+        color: #007bff;        color: #007bff;
+
+        text-decoration: none;        text-decoration: none;
+
+        font-weight: bold;        font-weight: bold;
+
+    }    }
+
+    .carousel-newest .item-link:hover {    .carousel-newest .item-link:hover {
+
+        text-decoration: underline;        text-decoration: underline;
+
+    }    }
+
+    .carousel-newest .carousel-control-prev-icon,    .carousel-newest .carousel-control-prev-icon,
+
+    .carousel-newest .carousel-control-next-icon {    .carousel-newest .carousel-control-next-icon {
+
+        background-color: rgba(0, 0, 0, 0.5);        background-color: rgba(0, 0, 0, 0.5);
+
+        border-radius: 50%;        border-radius: 50%;
+
+        padding: 20px;        padding: 20px;
+
+    }    }
+
+</style></style>
+
 <div class="blah">
+
+<!-- Resource Count Header -->    <br><br><br><br>
+
+<div class="blah">    <div class="container">
+
+    <br><br><br><br>        <div class="row align-items-center">
+
+    <div class="container">            <div class="col">
+
+        <div class="row align-items-center">                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Currently Hosting<br>{{ total_count }} Resources</H1>
+
+            <div class="col">            </div>
+
+                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Currently Hosting<br>{{ total_count }} Resources</H1>        </div>
+
+            </div>    </div>
+
+        </div></div>
+
+    </div><div class="blah">
+
+</div>    <br><br><br><br>
+
+    <div class="container">
+
+<!-- Newest Items Carousel Section -->        <div class="row align-items-center">
+
+<div class="blah">            <div class="col">
+
+    <br><br>            </div>
+
+    <div class="container">        </div>
+
+        <div class="row align-items-start">    </div>
+
+            <div class="col-lg-8"></div>
+
+                {% if newest_items %}<div class="blah">
+
+                <div id="newestItemsCarousel" class="carousel slide carousel-newest" data-ride="carousel" data-interval="5000">    <br><br><br><br>
+
+                    <h2 style="color: #333; text-align: center; margin-bottom: 20px;">Newest Publications</h2>    <div class="container">
+
+                            <div class="row align-items-center">
+
+                    <ol class="carousel-indicators">            <div class="col">
+
+                        {% for item in newest_items %}            </div>
+
+                        <li data-target="#newestItemsCarousel" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>        </div>
+
+                        {% endfor %}    </div>
+
+                    </ol></div>
+
+                    <div class="blah">
+
+                    <div class="carousel-inner">    <br><br><br><br>
+
+                        {% for item in newest_items %}    <div class="container">
+
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">        <div class="row align-items-center">
+
+                            <h3>{{ item.data.title or 'Untitled' }}</h3>            <div class="col">
+
+                                        </div>
+
+                            {% if item.data.creators %}        </div>
+
+                            <div class="item-meta">    </div>
+
+                                <strong>Authors:</strong> </div>
+
+                                {% for creator in item.data.creators[:3] %}<div class="blah">
+
+                                    {{ creator.firstName }} {{ creator.lastName }}{% if not loop.last %}, {% endif %}    <br><br><br><br>
+
+                                {% endfor %}    <div class="container">
+
+                                {% if item.data.creators|length > 3 %} et al.{% endif %}        <div class="row align-items-center">
+
+                            </div>            <div class="col">
+
+                            {% endif %}            </div>
+
+                                    </div>
+
+                            {% if item.data.date %}    </div>
+
+                            <div class="item-meta"></div>
+
+                                <strong>Date:</strong> {{ item.data.date }}<div class="blah">
+
+                            </div>    <br><br><br><br>
+
+                            {% endif %}    <div class="container">
+
+                                    <div class="row align-items-center">
+
+                            {% if item.data.itemType %}            <div class="col">
+
+                            <div class="item-meta">            </div>
+
+                                <strong>Type:</strong> {{ item.data.itemType|replace('_', ' ')|title }}        </div>
+
+                            </div>    </div>
+
+                            {% endif %}</div>
+
+                            <div class="blah">
+
+                            <div style="margin-top: 15px;">    <br><br><br><br>
+
+                                <a href="{{ url_for('kerko.item_view', item_id=item.id) }}" class="item-link">    <div class="container">
+
+                                    View Full Record →        <div class="row align-items-center">
+
+                                </a>            <div class="col">
+
+                            </div>            </div>
+
+                        </div>        </div>
+
+                        {% endfor %}    </div>
+
+                    </div></div>
+
+                    <div class="blah">
+
+                    <a class="carousel-control-prev" href="#newestItemsCarousel" role="button" data-slide="prev">    <br><br><br><br>
+
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>    <div class="container">
+
+                        <span class="sr-only">Previous</span>        <div class="row align-items-center">
+
+                    </a>            <div class="col">
+
+                    <a class="carousel-control-next" href="#newestItemsCarousel" role="button" data-slide="next">            </div>
+
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>        </div>
+
+                        <span class="sr-only">Next</span>    </div>
+
+                    </a></div>
+
+                </div><div class="blah">
+
+                {% else %}    <br><br><br><br>
+
+                <div class="carousel-newest" style="text-align: center;">    <div class="container">
+
+                    <p style="color: #666;">Loading newest publications...</p>        <div class="row align-items-center">
+
+                </div>            <div class="col">
+
+                {% endif %}            </div>
+
+            </div>        </div>
+
+                </div>
+
+            <div class="col-lg-4"></div>
+
+                <!-- Space for future content --><div class="blah">
+
+            </div>    <br><br><br><br>
+
+        </div>    <div class="container">
+
+    </div>        <div class="row align-items-center">
+
+</div>            <div class="col">
+
+            </div>
+
+<!-- Spacers -->        </div>
+
+<div class="blah">    </div>
+
+    <br><br><br><br></div>
+
+    <div class="container"><div class="blah">
+
+        <div class="row align-items-center">    <br><br><br><br>
+
+            <div class="col">    <div class="container">
+
+            </div>        <div class="row align-items-center">
+
+        </div>            <div class="col">
+
+    </div>            </div>
+
+</div>        </div>
+
+<div class="blah">    </div>
+
+    <br><br><br><br></div>
+
+    <div class="container"><div class="blah">
+
+        <div class="row align-items-center">    <br><br><br><br>
+
+            <div class="col">    <div class="container">
+
+            </div>        <div class="row align-items-center">
+
+        </div>            <div class="col">
+
+    </div>            </div>
+
+</div>        </div>
+
+<div class="blah">    </div>
+
+    <br><br><br><br></div>
+
+    <div class="container"><div class="blah">
+
+        <div class="row align-items-center">    <br><br><br><br>
+
+            <div class="col">    <div class="container">
+
+            </div>        <div class="row align-items-center">
+
+        </div>            <div class="col">
+
+    </div>            </div>
+
+</div>        </div>
+
+<div class="blah">    </div>
+
+    <br><br><br><br></div>
+
+    <div class="container"><div class="blah">
+
+        <div class="row align-items-center">    <br><br><br><br>
+
+            <div class="col">    <div class="container">
+
+            </div>        <div class="row align-items-center">
+
+        </div>            <div class="col">
+
+    </div>            </div>
+
+</div>        </div>
+
+<div class="blah">    </div>
+
+    <br><br><br><br></div>
+
+    <div class="container"><div class="blah">
+
+        <div class="row align-items-center">    <br><br><br><br>
+
+            <div class="col">    <div class="container">
+
+            </div>        <div class="row align-items-center">
+
+        </div>            <div class="col">
+
+    </div>            </div>
+
+</div>        </div>
+
+<div class="blah">    </div>
+
+    <br><br><br><br></div>
+
+    <div class="container"><div class="blah">
+
+        <div class="row align-items-center">    <br><br><br><br>
+
+            <div class="col">    <div class="container">
+
+            </div>        <div class="row align-items-center">
+
+        </div>            <div class="col">
+
+    </div>            </div>
+
+</div>        </div>
+
+<div class="blah">    </div>
+
+    <br><br><br><br></div>
+
+    <div class="container"><div class="blah">
+
+        <div class="row align-items-center">    <br><br><br><br>
+
+            <div class="col">    <div class="container">
+
+            </div>        <div class="row align-items-center">
+
+        </div>            <div class="col align-self-end">
+
+    </div>                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Resource Types</H1>
+
+</div>                <H3><a href="{{ url_for('kerko.search', type='journalArticle', sort='date_desc') }}">Journal Articles</a></H3>
+
+<div class="blah">                <H3><a href="{{ url_for('kerko.search', type='book', sort='date_desc') }}">Books</a></H3>
+
+    <br><br><br><br>                <H3><a href="{{ url_for('kerko.search', type='conferencePaper', sort='date_desc') }}">Conference Papers</a></H3>
+
+    <div class="container">                <H3><a href="{{ url_for('kerko.search', type='bookSection', sort='date_desc') }}">Book Sections</a></H3>
+
+        <div class="row align-items-center">                <H1><a class="btn btn-info btn-block active" href="{{ url_for('kerko.search') }}" role="button">Explore Our Database</a></H1>
+
+            <div class="col">            </div>
+
+            </div>        </div>
+
+        </div>    </div>
+
+    </div></div>
+
+</div>{{ super() }}
+
+<div class="blah">{% endblock %}
+
     <br><br><br><br>
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
-                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Currently Hosting<br>{{ total_count }} Resources</H1>
             </div>
         </div>
     </div>
@@ -76,105 +504,8 @@
         </div>
     </div>
 </div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="blah">
-    <br><br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</div>
+
+<!-- Resource Types and Call-to-Action -->
 <div class="blah">
     <br><br><br><br>
     <div class="container">

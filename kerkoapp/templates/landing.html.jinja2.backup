@@ -1,0 +1,231 @@
+{%- extends config.kerko.templates.page %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    main {
+        background: transparent;
+    }
+    .bg-custom {
+        background-color: transparent;
+    }
+    .btn-info {
+        background-color: skyblue;
+    }
+    a:link {
+        color: white;
+        text-decoration: none;
+    }
+    a:visited {
+        color: white;
+        background: skyblue;
+        text-decoration: none;
+    }
+    a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+    
+    /* Carousel styling for landing page */
+    .carousel-newest {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .carousel-newest .carousel-item {
+        min-height: 300px;
+        padding: 20px;
+    }
+    .carousel-newest h3 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+    .carousel-newest .item-meta {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+    .carousel-newest .item-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .carousel-newest .item-link:hover {
+        text-decoration: underline;
+    }
+    .carousel-newest .carousel-control-prev-icon,
+    .carousel-newest .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        padding: 20px;
+    }
+</style>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Currently Hosting<br>{{ total_count }} Resources</H1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blah">
+    <br><br><br><br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col align-self-end">
+                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Resource Types</H1>
+                <H3><a href="{{ url_for('kerko.search', type='journalArticle', sort='date_desc') }}">Journal Articles</a></H3>
+                <H3><a href="{{ url_for('kerko.search', type='book', sort='date_desc') }}">Books</a></H3>
+                <H3><a href="{{ url_for('kerko.search', type='conferencePaper', sort='date_desc') }}">Conference Papers</a></H3>
+                <H3><a href="{{ url_for('kerko.search', type='bookSection', sort='date_desc') }}">Book Sections</a></H3>
+                <H1><a class="btn btn-info btn-block active" href="{{ url_for('kerko.search') }}" role="button">Explore Our Database</a></H1>
+            </div>
+        </div>
+    </div>
+</div>
+{{ super() }}
+{% endblock %}
