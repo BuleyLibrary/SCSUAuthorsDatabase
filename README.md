@@ -45,6 +45,17 @@ demo site.
 Please refer to the [documentation][Kerko_documentation] for more details.
 
 
+## Landing page
+
+This app now serves a simple landing page at the site root (`/`) using the template at `kerkoapp/templates/landing.html.jinja2`.
+
+- It extends Kerko's base page (`extends config.kerko.templates.page`).
+- The route is defined in `kerkoapp/__init__.py` and passes a `total_count` value (number of indexed items) to the template via Kerko's index.
+- Links to the bibliography use `url_for('kerko.search', ...)` so they honor the configured blueprint prefix (`/bibliography`).
+
+If you want to customize the landing content or styling, edit `kerkoapp/templates/landing.html.jinja2`.
+
+
 [Kerko]: https://github.com/whiskyechobravo/kerko
 [Kerko_documentation]: https://whiskyechobravo.github.io/kerko/
 [KerkoApp]: https://github.com/whiskyechobravo/kerkoapp

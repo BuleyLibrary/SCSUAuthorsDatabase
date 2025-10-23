@@ -56,9 +56,14 @@ text_max_length_leeway = 10
 [kerko.link_groups]
 
     [[kerko.link_groups.navbar]]
-    text = "My Bibliography"
+    text = "Bibliography"
     type = "endpoint"
     endpoint = "kerko.search"
+
+    [[kerko.link_groups.navbar]]
+    text = "Home"
+    type = "url"
+    url = "/"
 
     [[kerko.link_groups.navbar]]
     text = "Analytics Dashboard"

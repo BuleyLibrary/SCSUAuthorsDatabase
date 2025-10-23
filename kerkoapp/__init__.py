@@ -6,6 +6,7 @@ import os
 
 import kerko
 from flask import Flask, render_template
+from kerko.storage import get_doc_count
 from flask_babel import get_locale
 from kerko.config_helpers import config_update, parse_config
 
@@ -56,6 +57,7 @@ def create_app() -> Flask:
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
+    register_routes(app)
     return app
 
 def register_extensions(app: Flask) -> None:
@@ -81,6 +83,24 @@ def register_blueprints(app: Flask) -> None:
     app.register_blueprint(kerko.make_blueprint(), url_prefix="/bibliography")
     #DASHBOOARD BLUEPRINT (ROOT/SPLASHPAGE URL '/dashboard') WITH REDIRECT TO MAIN BIB
     app.register_blueprint(dashboard_bp, url_prefix="/bibliography")
+
+
+def register_routes(app: Flask) -> None:
+    """Register app-level routes outside of blueprints."""
+
+    @app.route("/")
+    def landing_page():
+        """
+        Render the site's landing page.
+
+        Provides `total_count` to the template based on Kerko's index size.
+        """
+        total_count = 0
+        try:
+            total_count = get_doc_count("index")
+        except Exception as e:  # pragma: no cover - non-fatal display fallback
+            app.logger.warning(f"Unable to retrieve index document count: {e}")
+        return render_template("landing.html.jinja2", total_count=total_count, title="SCSU Authors")
 
 
 def register_errorhandlers(app: Flask) -> None:
