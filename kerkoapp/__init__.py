@@ -3,6 +3,10 @@ A sample Flask application using the Kerko blueprint.
 """
 
 import os
+import sys
+from pathlib import Path
+from logging.handlers import RotatingFileHandler
+import logging as py_logging
 
 import kerko
 from flask import Flask, render_template
@@ -53,12 +57,49 @@ def create_app() -> Flask:
     # good place to alter the Composer object, perhaps adding facets.
     # ----
 
+    # Configure file logging
+    configure_file_logging(app)
+
     #Helper functions for KerkoApp
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
     register_routes(app)
     return app
+
+
+def configure_file_logging(app: Flask) -> None:
+    """
+    Configure logging to write console output to a file.
+    Logs go to instance/logs/app.log with rotation.
+    """
+    log_dir = Path(app.instance_path) / "logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_file = log_dir / "app.log"
+    
+    # Create rotating file handler
+    file_handler = RotatingFileHandler(
+        log_file,
+        maxBytes=10_485_760,  # 10MB
+        backupCount=10
+    )
+    file_handler.setFormatter(py_logging.Formatter(
+        '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
+    ))
+    file_handler.setLevel(py_logging.INFO)
+    app.logger.addHandler(file_handler)
+    
+    # Also add console output
+    console_handler = py_logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(py_logging.Formatter(
+        '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
+    ))
+    console_handler.setLevel(py_logging.INFO)
+    app.logger.addHandler(console_handler)
+    
+    app.logger.setLevel(py_logging.INFO)
+    app.logger.info('KerkoApp startup - logging configured')
+
 
 def register_extensions(app: Flask) -> None:
     # Initialize Babel to use translations from both Kerko and the app. Config

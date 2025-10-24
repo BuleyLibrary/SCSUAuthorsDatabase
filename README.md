@@ -56,6 +56,27 @@ This app now serves a simple landing page at the site root (`/`) using the templ
 If you want to customize the landing content or styling, edit `kerkoapp/templates/landing.html.jinja2`.
 
 
+## Logging
+
+Application logs are automatically written to `instance/logs/app.log` with the following features:
+
+- **Log rotation**: Files rotate at 10MB, keeping 10 backup files (~100MB total history)
+- **Console + file output**: Logs appear in both terminal and file for easy debugging
+- **Format**: `[timestamp] LEVEL in module: message`
+
+### Viewing logs
+
+```bash
+# Tail the log file
+tail -f instance/logs/app.log
+
+# For Docker runs, also check container logs
+docker logs -f kerkoapp
+```
+
+The log directory is automatically created on first run and excluded from version control.
+
+
 [Kerko]: https://github.com/whiskyechobravo/kerko
 [Kerko_documentation]: https://whiskyechobravo.github.io/kerko/
 [KerkoApp]: https://github.com/whiskyechobravo/kerkoapp
