@@ -1,90 +1,12 @@
 {%- set title = _("Top 5 Works Cited") %}
 {%- extends config.kerko.templates.page %}
 
+{%- block head %}{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{%- endblock %}
+
 {%- block content_inner %}
     <div class="dashboard">
-        <style>
-            .dashboard {
-                padding: 2rem;
-            }
-            
-            .carousel-content {
-                padding: 2rem;
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-            
-            .card-title {
-                margin-bottom: 0.5rem;
-                font-size: 1.5rem;
-                font-weight: bold;
-            }
-            
-            .citation-count {
-                margin-bottom: 1rem;
-                color: #007bff;
-                font-size: 1.1rem;
-            }
-            
-            .info-block {
-                margin-bottom: 1rem;
-                color: #333;
-            }
-            
-            .card-footer {
-                margin-top: 1rem;
-                color: #666;
-                font-size: 0.9rem;
-            }
-            
-            .hidden {
-                display: none;
-            }
-            
-            .visible {
-                display: block;
-            }
-            
-            .horizontal-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-            
-            .horizontal-list li {
-                display: inline;
-            }
-            
-            .horizontal-list li:not(:last-child):after {
-                content: ", ";
-            }
-            
-            /* Carousel control styling */
-            .carousel-controls {
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-                margin-top: 1rem;
-            }
-            
-            .carousel-btn {
-                padding: 0.5rem 1rem;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.2s;
-            }
-            
-            .carousel-btn:hover {
-                background-color: #0056b3;
-            }
-        </style>
         <!-- Bootstrap Carousel -->
         <div id="carousel" class="carousel slide" data-bs-ride="carousel">
             <!-- Carousel Indicators -->
@@ -194,12 +116,12 @@
             </div>
         </div>
         <!-- Citation Chart -->
-        <div class="chart-container" style="margin-top: 2rem; padding: 1rem; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            <h2 style="text-align: center; margin-bottom: 1rem;">Publication References Over 13 Years</h2>
+        <div class="chart-container">
+            <h2>Publication References Over 13 Years</h2>
             <canvas id="myChart"></canvas>
         </div>
-        <div class="chart-container" style="margin-top: 2rem; padding: 1rem; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            <h2 style="text-align: center; margin-bottom: 1rem;">Publication Types</h2>
+        <div class="chart-container">
+            <h2>Publication Types</h2>
             <canvas id="pieChart"></canvas>
         </div>
     </div>

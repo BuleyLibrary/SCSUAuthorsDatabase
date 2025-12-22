@@ -1,0 +1,95 @@
+/* Styles extracted from dashboard.html.jinja2 */
+.dashboard {
+    padding: 2rem;
+}
+
+.carousel-content {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.citation-count {
+    margin-bottom: 1rem;
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+.info-block {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.card-footer {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.horizontal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.horizontal-list li {
+    display: inline;
+}
+
+.horizontal-list li:not(:last-child):after {
+    content: ", ";
+}
+
+/* Carousel control styling */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.carousel-btn {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.carousel-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Chart container styles (extracted from template inline styles) */
+.chart-container {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
