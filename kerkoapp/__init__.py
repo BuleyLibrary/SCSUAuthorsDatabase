@@ -10,7 +10,9 @@ import logging as py_logging
 
 import kerko
 from flask import Flask, render_template
-from kerko.storage import get_doc_count
+from kerko.storage import get_doc_count, open_index
+from kerko.searcher import Searcher
+from kerko.specs import SortSpec
 from flask_babel import get_locale
 from kerko.config_helpers import config_update, parse_config
 
@@ -134,14 +136,49 @@ def register_routes(app: Flask) -> None:
         """
         Render the site's landing page.
 
-        Provides `total_count` to the template based on Kerko's index size.
+        Provides `total_count` and `newest_items` to the template based on Kerko's index.
         """
         total_count = 0
+        newest_items = []
+        
         try:
             total_count = get_doc_count("index")
         except Exception as e:  # pragma: no cover - non-fatal display fallback
             app.logger.warning(f"Unable to retrieve index document count: {e}")
-        return render_template("landing.html.jinja2", total_count=total_count, title="SCSU Authors")
+        
+        # Fetch the 5 newest items from the index
+        try:
+            index = open_index("index")
+            with Searcher(index) as searcher:
+                # Get the sort field for date added
+                sort_field = app.config["kerko_composer"].fields.get("sort_date_added")
+                if sort_field:
+                    sort_spec = SortSpec(
+                        key="date_added_desc",
+                        label="",
+                        fields=[sort_field],
+                        reverse=True,
+                    )
+                    results = searcher.search(
+                        keywords=None,
+                        sort_spec=sort_spec,
+                        limit=5
+                    )
+                    # Get the field specs we need for display
+                    field_specs = {
+                        "id": app.config["kerko_composer"].fields.get("id"),
+                        "data": app.config["kerko_composer"].fields.get("data"),
+                    }
+                    newest_items = results.items(field_specs)
+        except Exception as e:  # pragma: no cover - non-fatal display fallback
+            app.logger.warning(f"Unable to retrieve newest items: {e}")
+        
+        return render_template(
+            "landing.html.jinja2",
+            total_count=total_count,
+            newest_items=newest_items,
+            title="SCSU Authors"
+        )
 
 
 def register_errorhandlers(app: Flask) -> None:
