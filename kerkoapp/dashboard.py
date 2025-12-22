@@ -109,6 +109,51 @@ def get_item_type_counts(items):
 
     return item_type_counts
 
+def _normalize_department_label(raw: str) -> str:
+    raw = raw.strip()
+    # Facet values look like "V3QKJJFM Administration" → strip leading code (alnum, upper)
+    parts = raw.split(" ", 1)
+    if len(parts) == 2:
+        code = parts[0]
+        if code and code == code.upper():
+            return parts[1] or raw
+    return raw
+
+
+def get_department_counts(items):
+    """Extract department values from Kerko facet fields, fallback to tags.
+
+    Prefers `facet_department` (list like ["V3QKJJFM Administration"]).
+    If absent, looks for tags prefixed with "dept.".
+    """
+    dept_counts = defaultdict(int)
+    for item in items:
+        dept_values = []
+
+        # Preferred: Kerko facet_department values
+        facet = item.get("facet_department")
+        if facet:
+            if isinstance(facet, (list, tuple)):
+                dept_values.extend([_normalize_department_label(str(v)) for v in facet if v])
+            else:
+                dept_values.append(_normalize_department_label(str(facet)))
+
+        # Fallback: tags like "dept.xyz"
+        if not dept_values:
+            data = item.get("data", {}) or {}
+            for tag in data.get("tags", []) or []:
+                t = tag.get("tag") if isinstance(tag, dict) else tag
+                if t and isinstance(t, str) and t.startswith("dept."):
+                    dept_values.append(t.replace("dept.", "").replace("_", " ").title())
+
+        if not dept_values:
+            dept_values = ["Unknown"]
+
+        for d in dept_values:
+            dept_counts[d] += 1
+
+    return dept_counts
+
 @dashboard_bp.route('/dashboard')
 def index():
     try:
@@ -227,10 +272,50 @@ def index():
             }
         }
 
+        # Department pie chart data
+        dept_data = get_department_counts(items)
+        dept_labels = list(dept_data.keys())
+        dept_counts = list(dept_data.values())
+        dept_pie_chart = {
+            'type': 'pie',
+            'data': {
+                'labels': dept_labels,
+                'datasets': [{
+                    'data': dept_counts,
+                    'backgroundColor': [
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 205, 86, 0.5)',
+                        'rgba(201, 203, 207, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    'borderColor': [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    'borderWidth': 1
+                }]
+            },
+            'options': {
+                'responsive': True,
+                'legend': {'display': False},
+            }
+        }
+
         return render_template("dashboard.html.jinja2", 
                              all_data=all_data,
                              chartJSON=json.dumps(chart_data),
                              pieChartJSON=json.dumps(pie_chart_data),
+                             deptPieChartJSON=json.dumps(dept_pie_chart),
+                             deptLabels=dept_labels,
+                             deptCounts=dept_counts,
                              rss_feed_url=(current_app.config['SERVER_NAME'] or 'http://localhost') + '/feed.rss')
         
     except Exception as e:

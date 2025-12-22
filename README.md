@@ -55,6 +55,15 @@ This app now serves a simple landing page at the site root (`/`) using the templ
 
 If you want to customize the landing content or styling, edit `kerkoapp/templates/landing.html.jinja2`.
 
+## Dashboard
+
+The dashboard at `/bibliography/dashboard` shows:
+
+- A bar chart of publications per year plus one pie chart (item types) in `kerkoapp/templates/dashboard.html.jinja2`.
+- Charts use Whoosh index data; ensure you have synced the index (`flask kerko sync`) before viewing.
+
+To adjust analytics or navbar styling across the app, see the template overrides under `kerkoapp/templates/kerko/`.
+
 
 ## Logging
 

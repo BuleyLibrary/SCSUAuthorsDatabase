@@ -31,6 +31,8 @@ These notes teach AI coding agents how to be productive in this Flask + Kerko bi
 - Always provide a `title` variable when rendering pages that extend Kerko layouts; it's used in breadcrumbs and headers.
 - Generate URLs with blueprint-qualified endpoints so prefixes are respected:
   - `url_for('kerko.search')`, `url_for('kerko.item_view', item_id=item.id)`.
+- Global head/analytics override: `kerkoapp/templates/kerko/layout.html.jinja2` extends Kerko's base and includes `kerko/_analytics.html.jinja2` inside the `<head>`. Paste any analytics snippet (Matomo, GA4, etc.) into `kerkoapp/templates/kerko/_analytics.html.jinja2`.
+- Navbar styling override: same layout override uses `navbar-light bg-light`; adjust there if branding changes.
 
 ## Working with Kerko's index
 - Get counts: `from kerko.storage import get_doc_count` → `get_doc_count("index")`.
@@ -78,6 +80,6 @@ These notes teach AI coding agents how to be productive in this Flask + Kerko bi
   - How to pass `total_count` from Kerko's index.
   - How to link into Kerko search with `url_for('kerko.search', ...)`.
   - Simple custom landing page without carousel (resource count + type links).
-- Analytics dashboard: `kerkoapp/dashboard.py` shows direct Whoosh reads (outside Kerko's Searcher) to compute stats.
+- Analytics dashboard: `kerkoapp/dashboard.py` shows direct Whoosh reads (outside Kerko's Searcher) to compute stats. `kerkoapp/templates/dashboard.html.jinja2` renders a bar chart (per-year publications) plus two pie charts (item types and departments).
 
 If anything above is unclear (e.g., how you want index sync documented for non-Docker local dev, or preferred lint/test commands), tell me and I'll refine these notes.
