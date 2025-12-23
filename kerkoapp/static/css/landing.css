@@ -1,7 +1,8 @@
 /* Landing page styles */
 
 body {
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;
+    background-image: url('../img/Buley_Library_Front.jpg') !important;
+    background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -37,7 +37,7 @@ max_days = 0
 
 [kerko.meta]
 
-title = "SCSU Bibliography"
+title = "SCSU Authors Database"
 highwirepress_tags = true
 google_analytics_id = ""
 
@@ -65,10 +65,11 @@ text_max_length_leeway = 10
     type = "endpoint"
     endpoint = "kerko.search"
 
-    [[kerko.link_groups.navbar]]
-    text = "Analytics Dashboard"
-    type = "url"
-    url = "/bibliography/dashboard"
+# disabled while still in dev
+   # [[kerko.link_groups.navbar]]
+   # text = "Analytics Dashboard"
+   # type = "url"
+   # url = "/bibliography/dashboard"
 
     [[kerko.link_groups.breadcrumb_base]]
     text = "My Bibliography"
