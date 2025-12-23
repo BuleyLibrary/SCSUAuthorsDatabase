@@ -1,0 +1,41 @@
+/* Landing page styles */
+
+body {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+main {
+    background: transparent;
+}
+
+.bg-custom {
+    background-color: transparent;
+}
+
+.btn-info {
+    background-color: skyblue;
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited {
+    color: white;
+    background: skyblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Landing page heading styles */
+.landing-heading {
+    color: #ffffff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

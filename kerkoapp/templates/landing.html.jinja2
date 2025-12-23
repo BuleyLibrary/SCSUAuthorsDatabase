@@ -1,41 +1,17 @@
 {%- extends config.kerko.templates.page %}
 
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+{% endblock %}
+
 {% block content %}
-<style>
-    body {
-        background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    main {
-        background: transparent;
-    }
-    .bg-custom {
-        background-color: transparent;
-    }
-    .btn-info {
-        background-color: skyblue;
-    }
-    a:link {
-        color: white;
-        text-decoration: none;
-    }
-    a:visited {
-        color: white;
-        background: skyblue;
-        text-decoration: none;
-    }
-    a:hover {
-        color: white;
-        text-decoration: underline;
-    }
-</style>
 <div class="blah">
     <br><br><br><br>
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
-                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Currently Hosting<br>{{ total_count }} Resources</H1>
+                <H1 class="landing-heading">Currently Hosting<br>{{ total_count }} Resources</H1>
             </div>
         </div>
     </div>
@@ -180,7 +156,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col align-self-end">
-                <H1 style="color: #ffffff; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Resource Types</H1>
+                <H1 class="landing-heading">Resource Types</H1>
                 <H3><a href="{{ url_for('kerko.search', type='journalArticle', sort='date_desc') }}">Journal Articles</a></H3>
                 <H3><a href="{{ url_for('kerko.search', type='book', sort='date_desc') }}">Books</a></H3>
                 <H3><a href="{{ url_for('kerko.search', type='conferencePaper', sort='date_desc') }}">Conference Papers</a></H3>
