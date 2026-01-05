@@ -64,10 +64,11 @@ text_max_length_leeway = 10
     type = "endpoint"
     endpoint = "kerko.search"
 
-    [[kerko.link_groups.navbar]]
-    text = "Analytics Dashboard"
-    type = "url"
-    url = "/bibliography/dashboard"
+#disabled dashboard link until functionality is improved
+#    [[kerko.link_groups.navbar]]
+#    text = "Analytics Dashboard"
+#    type = "url"
+#    url = "/bibliography/dashboard"
 
     [[kerko.link_groups.breadcrumb_base]]
     text = "My Bibliography"
