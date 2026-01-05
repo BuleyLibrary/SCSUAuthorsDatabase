@@ -1,41 +1,46 @@
 /* Landing page styles */
 
 body {
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Hilton_C._Buley_Library.jpg') !important;
+    background-image: url('https://libweb.southernct.edu/img/Buley_Library_Front.jpg') !important;
+    background-color: #575757;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-main {
-    background: transparent;
+.landing-hero {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black overlay */
+    color: white;
+    text-align: center;
 }
 
-.bg-custom {
-    background-color: transparent;
+/* Landing page heading styles */
+.resource-links {
+    padding-left: unset;
+    margin-top: 20px;
 }
-
-.btn-info {
-    background-color: skyblue;
+.resource-links li
+{
+    margin-bottom: 5px;
+    font-size: 1.5em;
+    list-style: none;
 }
-
-a:link {
+.resource-links a {
     color: white;
     text-decoration: none;
 }
 
-a:visited {
+.resource-links a:visited {
     color: white;
     background: skyblue;
     text-decoration: none;
 }
 
-a:hover {
+.resource-links a:hover {
     color: white;
     text-decoration: underline;
-}
-
-/* Landing page heading styles */
-.landing-heading {
-    color: #ffffff;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+} 
+.landing-button {
+    opacity: 1;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 51, 153);
 }

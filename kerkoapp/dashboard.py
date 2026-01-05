@@ -5,7 +5,7 @@ from whoosh.index import open_dir
 from collections import defaultdict
 
 
-dashboard_bp = Blueprint('main', __name__)
+dashboard_bp = Blueprint('dashboard', __name__)
 
 
 def string_to_dict(input_str):
