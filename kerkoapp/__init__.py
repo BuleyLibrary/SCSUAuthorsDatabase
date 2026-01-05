@@ -3,10 +3,16 @@ A sample Flask application using the Kerko blueprint.
 """
 
 import os
+import sys
+from pathlib import Path
+from logging.handlers import RotatingFileHandler
+import logging as py_logging
 
 import kerko
 from flask import Flask, render_template
-from kerko.storage import get_doc_count
+from kerko.storage import get_doc_count, open_index
+from kerko.searcher import Searcher
+from kerko.specs import SortSpec
 from flask_babel import get_locale
 from kerko.config_helpers import config_update, parse_config
 
@@ -53,12 +59,49 @@ def create_app() -> Flask:
     # good place to alter the Composer object, perhaps adding facets.
     # ----
 
+    # Configure file logging
+    configure_file_logging(app)
+
     #Helper functions for KerkoApp
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
     register_routes(app)
     return app
+
+
+def configure_file_logging(app: Flask) -> None:
+    """
+    Configure logging to write console output to a file.
+    Logs go to instance/logs/app.log with rotation.
+    """
+    log_dir = Path(app.instance_path) / "logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_file = log_dir / "app.log"
+    
+    # Create rotating file handler
+    file_handler = RotatingFileHandler(
+        log_file,
+        maxBytes=10_485_760,  # 10MB
+        backupCount=10
+    )
+    file_handler.setFormatter(py_logging.Formatter(
+        '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
+    ))
+    file_handler.setLevel(py_logging.INFO)
+    app.logger.addHandler(file_handler)
+    
+    # Also add console output
+    console_handler = py_logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(py_logging.Formatter(
+        '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
+    ))
+    console_handler.setLevel(py_logging.INFO)
+    app.logger.addHandler(console_handler)
+    
+    app.logger.setLevel(py_logging.INFO)
+    app.logger.info('KerkoApp startup - logging configured')
+
 
 def register_extensions(app: Flask) -> None:
     # Initialize Babel to use translations from both Kerko and the app. Config
@@ -93,14 +136,49 @@ def register_routes(app: Flask) -> None:
         """
         Render the site's landing page.
 
-        Provides `total_count` to the template based on Kerko's index size.
+        Provides `total_count` and `newest_items` to the template based on Kerko's index.
         """
         total_count = 0
+        newest_items = []
+        
         try:
             total_count = get_doc_count("index")
         except Exception as e:  # pragma: no cover - non-fatal display fallback
             app.logger.warning(f"Unable to retrieve index document count: {e}")
-        return render_template("landing.html.jinja2", total_count=total_count, title="SCSU Authors")
+        
+        # Fetch the 5 newest items from the index
+        try:
+            index = open_index("index")
+            with Searcher(index) as searcher:
+                # Get the sort field for date added
+                sort_field = app.config["kerko_composer"].fields.get("sort_date_added")
+                if sort_field:
+                    sort_spec = SortSpec(
+                        key="date_added_desc",
+                        label="",
+                        fields=[sort_field],
+                        reverse=True,
+                    )
+                    results = searcher.search(
+                        keywords=None,
+                        sort_spec=sort_spec,
+                        limit=5
+                    )
+                    # Get the field specs we need for display
+                    field_specs = {
+                        "id": app.config["kerko_composer"].fields.get("id"),
+                        "data": app.config["kerko_composer"].fields.get("data"),
+                    }
+                    newest_items = results.items(field_specs)
+        except Exception as e:  # pragma: no cover - non-fatal display fallback
+            app.logger.warning(f"Unable to retrieve newest items: {e}")
+        
+        return render_template(
+            "landing.html.jinja2",
+            total_count=total_count,
+            newest_items=newest_items,
+            title="SCSU Authors"
+        )
 
 
 def register_errorhandlers(app: Flask) -> None:
