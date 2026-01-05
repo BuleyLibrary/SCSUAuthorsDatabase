@@ -1,5 +1,6 @@
-{%- set title = _("Database Statistics") %}
+{%- set title = _("Summary Charts") %}
 {%- extends config.kerko.templates.page %}
+{% block html_attributes %} lang="en"{% endblock %}
 
 {%- block head %}{{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
@@ -7,7 +8,6 @@
 
 {%- block content_inner %}
     <div class="dashboard">
-        <h2>Five Most Cited Works</h2>
         <!-- Bootstrap Carousel -->
         <div id="carousel" class="carousel slide" data-bs-ride="carousel">
             <!-- Carousel Indicators -->
