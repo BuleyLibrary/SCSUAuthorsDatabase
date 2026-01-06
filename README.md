@@ -1,6 +1,10 @@
 # Buley Library Deployment
 This is the modified KerkoApp for Buley Library production deployment. It still functions as designed by original authors but has been modified to clean up code, improve accessibility and improve ease in hosting in the production environment.
 
+use make to build image
+
+podman run --name kerkoapp --rm -p 8080:80 -v ./instance:/kerkoapp/instance scsu_authors/kerkoapp
+
 # SCSU CSC400 Capstone: Bibliography Site Upgrade
 
 You can follow the standard installation provided in the docs below, with one change:
