@@ -1,5 +1,5 @@
 # This Makefile contains targets for building and running the KerkoApp Docker image.
-# modified to change to podman commands
+
 # Change IMAGE_NAME if you wish to build your own image.
 IMAGE_NAME := scsu_authors/kerkoapp
 
@@ -50,18 +50,19 @@ help:
 # https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities
 .PHONY: run
 run: | $(DATA) $(SECRETS) $(CONFIG)
-	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME)
+	docker run --privileged --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance -v $(HOST_DEV_LOG):/dev/log $(IMAGE_NAME)
 
 .PHONY: shell
 shell:
-	podman run --name $(CONTAINER_NAME) -it --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME) bash
+	docker run --name $(CONTAINER_NAME) -it --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance -v $(HOST_DEV_LOG):/dev/log $(IMAGE_NAME) bash
 
 .PHONY: clean_kerko
 clean_kerko: | $(SECRETS) $(CONFIG)
-	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME) flask kerko clean everything
+	docker run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance -v $(HOST_DEV_LOG):/dev/log $(IMAGE_NAME) flask kerko clean everything
+
 $(DATA): | $(SECRETS) $(CONFIG)
 	@echo "[INFO] It looks like you have not run the 'flask kerko sync' command. Running it for you now!"
-	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME) flask kerko sync
+	docker run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance -v $(HOST_DEV_LOG):/dev/log $(IMAGE_NAME) flask kerko sync
 
 $(SECRETS):
 	@echo "[ERROR] You must create '$(SECRETS)'."
@@ -87,10 +88,10 @@ ifneq ($(shell git status --porcelain 2> /dev/null),)
 	@exit 1
 endif
 ifeq ($(findstring .,$(VERSION)),.)
-	podman tag $(IMAGE_NAME) $(IMAGE_NAME):$(VERSION)
-	podman push $(IMAGE_NAME):$(VERSION)
-	podman tag $(IMAGE_NAME) $(IMAGE_NAME):latest
-	podman push $(IMAGE_NAME):latest
+	docker tag $(IMAGE_NAME) $(IMAGE_NAME):$(VERSION)
+	docker push $(IMAGE_NAME):$(VERSION)
+	docker tag $(IMAGE_NAME) $(IMAGE_NAME):latest
+	docker push $(IMAGE_NAME):latest
 else
 	@echo "[ERROR] A proper version tag on the Git HEAD is required to publish."
 	@exit 1
@@ -99,9 +100,9 @@ endif
 .PHONY: build
 build: | .git
 ifeq ($(findstring .,$(VERSION)),.)
-	podman build -t $(IMAGE_NAME) --no-cache --label "org.opencontainers.image.version=$(VERSION)" --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" $(MAKEFILE_DIR)
+	docker build -t $(IMAGE_NAME) --no-cache --label "org.opencontainers.image.version=$(VERSION)" --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" $(MAKEFILE_DIR)
 else
-	podman build -t $(IMAGE_NAME) --no-cache --label "org.opencontainers.image.revision=$(HASH)" --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" $(MAKEFILE_DIR)
+	docker build -t $(IMAGE_NAME) --no-cache --label "org.opencontainers.image.revision=$(HASH)" --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" $(MAKEFILE_DIR)
 endif
 
 .PHONY: show_version
@@ -115,9 +116,9 @@ endif
 .PHONY: clean_image
 clean_image: | .git
 ifeq ($(findstring .,$(VERSION)),.)
-	podman rmi $(IMAGE_NAME):$(VERSION)
+	docker rmi $(IMAGE_NAME):$(VERSION)
 else
-	podman rmi $(IMAGE_NAME)
+	docker rmi $(IMAGE_NAME)
 endif
 
 .git:
