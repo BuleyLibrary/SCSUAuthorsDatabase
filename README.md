@@ -1,3 +1,6 @@
+# Buley Library Deployment
+This is the modified KerkoApp for Buley Library production deployment. It still functions as designed by original authors but has been modified to clean up code, improve accessibility and improve ease in hosting in the production environment.
+
 # SCSU CSC400 Capstone: Bibliography Site Upgrade
 
 You can follow the standard installation provided in the docs below, with one change:
