@@ -3,7 +3,7 @@ This is the modified KerkoApp for Buley Library production deployment. It still 
 
 use make to build image
 
-podman run --name kerkoapp --rm -p 8080:80 -v ./instance:/kerkoapp/instance scsu_authors/kerkoapp
+podman run -d --name kerkoapp --rm -p 8080:80 -v ./instance:/kerkoapp/instance:Z scsu_authors/kerkoapp
 
 # SCSU CSC400 Capstone: Bibliography Site Upgrade
 

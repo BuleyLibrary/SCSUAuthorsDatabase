@@ -50,18 +50,17 @@ help:
 # https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities
 .PHONY: run
 run: | $(DATA) $(SECRETS) $(CONFIG)
-	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME)
+	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):8000 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance:Z $(IMAGE_NAME)
 
 .PHONY: shell
 shell:
-	podman run --name $(CONTAINER_NAME) -it --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME) bash
-
+	podman run --name $(CONTAINER_NAME) -it --rm -p $(HOST_PORT):8000 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance:Z $(IMAGE_NAME) bash
 .PHONY: clean_kerko
 clean_kerko: | $(SECRETS) $(CONFIG)
-	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME) flask kerko clean everything
+	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):8000 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance:Z $(IMAGE_NAME) flask kerko clean everything
 $(DATA): | $(SECRETS) $(CONFIG)
 	@echo "[INFO] It looks like you have not run the 'flask kerko sync' command. Running it for you now!"
-	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):80 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance $(IMAGE_NAME) flask kerko sync
+	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):8000 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance:Z $(IMAGE_NAME) flask kerko sync
 
 $(SECRETS):
 	@echo "[ERROR] You must create '$(SECRETS)'."
