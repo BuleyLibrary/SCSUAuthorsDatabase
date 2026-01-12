@@ -50,7 +50,7 @@ help:
 # https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities
 .PHONY: run
 run: | $(DATA) $(SECRETS) $(CONFIG)
-	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):8000 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance:Z $(IMAGE_NAME)
+	podman run --name $(CONTAINER_NAME) --rm -p $(HOST_PORT):8000 -v $(HOST_INSTANCE_PATH):/kerkoapp/instance:Z --log-driver json-file --log-opt max-size=10m --log-opt max-file=10 $(IMAGE_NAME)
 
 .PHONY: shell
 shell:
