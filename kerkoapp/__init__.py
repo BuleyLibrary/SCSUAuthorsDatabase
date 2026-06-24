@@ -17,7 +17,7 @@ from kerko.config_helpers import config_update, parse_config
 from . import logging
 from .dashboard import dashboard_bp
 from .config_helpers import KerkoAppModel, load_config_files
-from .extensions import babel, bootstrap
+from .extensions import babel, bootstrap, plugin_manager
 
 
 
@@ -52,6 +52,7 @@ def create_app() -> Flask:
     # Initialize the Composer object.
     app.config["kerko_composer"] = kerko.composer.Composer(app.config)
 
+<<<<<<< HEAD
     # ----
     # If you are deriving your own custom application from KerkoApp, here is a
     # good place to alter the Composer object, perhaps adding facets.
@@ -61,6 +62,8 @@ def create_app() -> Flask:
     configure_file_logging(app)
 
     #Helper functions for KerkoApp
+=======
+>>>>>>> b4acff38892567f3c617745f99058d31ba5cf0b6
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
@@ -117,6 +120,7 @@ def register_extensions(app: Flask) -> None:
 
     logging.init_app(app)
     bootstrap.init_app(app)
+    plugin_manager.init_app(app)
 
 def register_blueprints(app: Flask) -> None:
     # Setting `url_prefix` is required to distinguish the blueprint's static

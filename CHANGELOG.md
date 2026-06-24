@@ -4,6 +4,24 @@ Before doing an upgrade, please check the "How to upgrade" section of the Kerko
 documentation.
 
 
+## 1.4.0alpha0 (2026-02-27)
+
+Backwards incompatible changes:
+
+- Drop support for Python 3.9 and 3.10 (not supported by Karboni).
+
+Other changes:
+
+- Change the format of log messages.`LOGGING_FORMAT` now defaults to
+  `"[%(asctime)s] %(levelname)s in %(name)s - %(message)s"` instead of
+  `"[%(asctime)s] %(levelname)s in %(module)s: %(message)s"`.
+- Adapt application to initialize the plugin system.
+- Upgrade the versions of dependencies.
+- Upgrade the Docker image to Python 3.14.
+- Remove superfluous directory from Docker image.
+- Restructure Docker-related Makefile targets.
+
+
 ## 1.3.0 (2025-06-17)
 
 Changes:
